@@ -87,6 +87,19 @@ function drawBricks() {
     });
   });
 }
+// Move paddle on canvas
+function movePaddle() {
+  padding.x += paddle.dx;
+
+  // Wall dectection
+  if (paddle.x + paddle.w > canvas.width) {
+    padding.x = canvas.width = paddle.w;
+  }
+
+  if (paddle.x < 0) {
+    paddle.x = 0;
+  }
+}
 
 // Draw everything
 function draw() {
@@ -96,7 +109,17 @@ function draw() {
   drawBricks();
 }
 
-draw();
+// Update canvas drawing and animation
+function update() {
+  movePaddle();
+
+  // Draw everything
+  draw();
+
+  requestAnimationFrame(update);
+}
+
+update();
 
 // Rules and close event handler
 
